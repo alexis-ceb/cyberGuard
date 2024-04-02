@@ -7,7 +7,7 @@
       "command": "npm run dev",
       "isBackground": true,
       "presentation": {
-        "panel": "new",
+        "panel": "new"
       },
       "options": {
         "statusbar": {

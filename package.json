@@ -1,9 +1,13 @@
 {
   "name": "cyberguard",
+  "description": "CyberGuard is a cyber security tool that helps you to protect your data and privacy. It is a cross-platform application that is built using Electron",
+  "version": "1.0.0",
   "main": "./electron/main.js",
   "scripts": {
     "dev": "concurrently -n \"▲ Next JS,⚛️ Electron\" -c \"green,cyan\" --kill-others \"next dev\" \"electron .\"",
-    "build": "next build && electron-builder"
+    "build": "next build",
+    "package": "electron-builder",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "electron-serve": "^1.3.0",
@@ -17,16 +21,36 @@
     "electron": "^29.1.6",
     "electron-builder": "^24.13.3",
     "eslint": "^8",
-    "eslint-config-next": "14.1.4",
+    "eslint-config-next": "^14.1.4",
+    "eslint-config-prettier": "^9.1.0",
     "postcss": "^8",
+    "prettier": "^3.2.5",
     "standard": "^17.1.0",
     "tailwindcss": "^3.3.0"
   },
   "eslintConfig": {
     "extends": [
-      "next",
       "standard",
-      "next/core-web-vitals"
+      "eslint-config-next",
+      "eslint-config-prettier"
     ]
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "jsxSingleQuote": true,
+    "trailingComma": "none",
+    "arrowParens": "avoid",
+    "bracketSameLine": true
+  },
+  "build": {
+    "appId": "com.cyberguard.app",
+    "productName": "CyberGuard",
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "win": {
+      "target": "nsis"
+    }
   }
 }
