@@ -9,4 +9,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "workbench.statusBar.visible": true,
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
 }
