@@ -1,31 +1,44 @@
-const { app, BrowserWindow } = require('electron')
+const { app, protocol, BrowserWindow } = require('electron')
 const serve = require('electron-serve')
 const path = require('path')
+const fs = require('fs')
 
-const createWindow = () => {
-  const win = new BrowserWindow({
+protocol.registerSchemesAsPrivileged([
+  { scheme: 'cyberguard-app', privileges: { secure: true, standard: true } }
+])
+
+const createBrowserWindow = async () => {
+  const preload = path.join(__dirname, 'preload.js')
+  const browserWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
-    }
+    minHeight: 600,
+    minWidth: 800,
+    title: 'Cyberguard',
+    titleBarStyle: 'hiddenInset',
+    webPreferences: { preload, contextIsolation: true, nodeIntegration: false }
   })
 
-  if (app.isPackaged) {
-    const appServe = serve({
-      directory: path.join(__dirname, '../out')
-    })
+  browserWindow.webContents.on('did-fail-load', (e, code, desc) =>
+    browserWindow.webContents.reloadIgnoringCache()
+  )
 
-    appServe(win).then(() => win.loadURL('app://-'))
+  const directory = path.join(__dirname, './../out')
+
+  if (app.isPackaged && fs.existsSync(directory)) {
+    serve({ directory })(browserWindow)
+    browserWindow.webContents.openDevTools()
+    await browserWindow.loadURL('app://-')
     return
   }
 
-  win.loadURL('http://localhost:3000')
-  win.webContents.on('did-fail-load', (e, code, desc) =>
-    win.webContents.reloadIgnoringCache()
-  )
+  if (app.isPackaged && !fs.existsSync(directory)) {
+    return await browserWindow.loadURL('http://www.staggeringbeauty.com/')
+  }
+
+  browserWindow.loadURL('http://localhost:3000')
 }
 
-app.on('ready', () => createWindow())
+app.on('ready', () => createBrowserWindow())
 
 app.on('window-all-closed', () => process.platform !== 'darwin' && app.quit())
