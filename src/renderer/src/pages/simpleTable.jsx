@@ -23,12 +23,12 @@ const SimpleTable = ({ columns, rows, customColumns }) => {
       selectionMode="single"
       isStriped
     >
-      <TableHeader columns={columns}>
+      <TableHeader aria-label="DATA_VIEW_2" columns={columns}>
         {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
       </TableHeader>
-      <TableBody items={rows}>
+      <TableBody aria-label="DATA_VIEW_3" items={rows}>
         {(item) => (
-          <TableRow key={item.key}>
+          <TableRow aria-label="DATA_VIEW_4" key={item.key}>
             {(columnKey) => <TableCell>{renderCell({ item, columnKey })}</TableCell>}
           </TableRow>
         )}

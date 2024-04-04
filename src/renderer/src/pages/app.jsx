@@ -26,8 +26,8 @@ const App = () => {
           selectedKey={selected}
           onSelectionChange={setSelected}
         >
-          <Tab key="dashboard" title="Dashboard" />
-          <Tab key="data" title="Data View" />
+          <Tab aria-label="TAB_OPTION" key="dashboard" title="Dashboard" />
+          <Tab aria-label="TAB_OPTION" key="data" title="Data View" />
         </Tabs>
       </div>
       <div className="grow flex flex-row overflow-clip">{views[selected]}</div>

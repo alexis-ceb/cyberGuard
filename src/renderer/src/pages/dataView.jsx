@@ -35,7 +35,7 @@ const packagesCustomColumns = {
 
 const DataView = () => {
   const [selected, setSelected] = useState('packages')
-  const packages = usePolling(routes.packages)
+  const [packages] = usePolling(routes.packages)
 
   return (
     <div className="grow flex flex-col gap-2">
@@ -49,7 +49,7 @@ const DataView = () => {
           selectedKey={selected}
           onSelectionChange={setSelected}
         >
-          <Tab key="packages" title="Packages" />
+          <Tab aria-label="TAB_OPTION" key="packages" title="Packages" />
         </Tabs>
       </div>
       <div className="grow flex flex-row overflow-clip">

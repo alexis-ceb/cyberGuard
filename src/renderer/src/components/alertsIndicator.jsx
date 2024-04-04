@@ -33,11 +33,16 @@ const Alert = ({ title, description, severity }) => {
 
 const AlertsIndicator = ({ alerts }) => {
   return (
-    <div>
+    <div className="h-full">
+      {alerts.length === 0 && (
+        <div className="flex justify-center items-center h-full w-full">
+          <p className="text-center text-stone-500">No alerts to show.</p>
+        </div>
+      )}
       {alerts.map(({ title, description, severity }, i) => (
         <>
           <Alert title={title} description={description} severity={severity} key={i} />
-          <Divider className="my-2" />
+          <Divider aria-label="DIVIDER" className="my-2" />
         </>
       ))}
     </div>

@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <NextUIProvider>
       <App />
-      <Toaster toastOptions={{ className: 'text-xs' }} />
+      <Toaster toastOptions={{ className: 'text-xs' }} position="bottom-center" />
     </NextUIProvider>
   </React.StrictMode>
 )

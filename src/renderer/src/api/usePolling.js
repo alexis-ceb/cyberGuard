@@ -26,7 +26,7 @@ const usePolling = (url) => {
     }
   }, [url])
 
-  return data
+  return [data, setData]
 }
 
 export default usePolling
