@@ -14,7 +14,10 @@ export default {
           DEFAULT: '#204970'
         },
         background: {
-          DEFAULT: '#f0ecec'
+          DEFAULT: '#f1eded'
+        },
+        secondary: {
+          DEFAULT: '#fffbfa'
         }
       }
     }
