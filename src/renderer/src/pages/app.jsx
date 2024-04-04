@@ -12,6 +12,7 @@ const views = {
 
 const App = () => {
   const [selected, setSelected] = useState('dashboard')
+
   return (
     <div className="h-[100dvh] w-full flex flex-col gap-2 bg-white px-4 py-4">
       <div className="relative">

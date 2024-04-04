@@ -7,12 +7,14 @@ import { NextUIProvider } from '@nextui-org/react'
 import App from './pages/app'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
 import dayjs from 'dayjs'
+import { Toaster } from 'react-hot-toast'
 dayjs.extend(localizedFormat)
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <NextUIProvider>
       <App />
+      <Toaster toastOptions={{ className: 'text-xs' }} />
     </NextUIProvider>
   </React.StrictMode>
 )

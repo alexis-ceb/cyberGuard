@@ -1,14 +1,42 @@
 import { useState } from 'react'
-import { PackagesViewData } from './dataView/packagesView'
 import { Tabs, Tab } from '@nextui-org/react'
 import SimpleTable from './simpleTable'
+import routes from '../api/routes'
+import dayjs from 'dayjs'
+import usePolling from '../api/usePolling'
 
-const views = {
-  packages: PackagesViewData
+const packagesColumns = [
+  {
+    key: 'time',
+    label: 'TIME'
+  },
+  {
+    key: 'sender_ip',
+    label: 'SENDER IP'
+  },
+  {
+    key: 'receiver_ip',
+    label: 'RECEIVER IP'
+  },
+  {
+    key: 'size_bytes',
+    label: 'SIZE (BYTES)'
+  }
+]
+
+const packagesCustomColumns = {
+  time: (value) => <div>{dayjs(value).format('LL LTS')}</div>,
+  size_bytes: (value) => (
+    <div>
+      {value} bytes ({(value / 1024).toFixed(2)} KB)
+    </div>
+  )
 }
 
 const DataView = () => {
-  const [selected, setSelected] = useState(Object.keys(views)[0])
+  const [selected, setSelected] = useState('packages')
+  const packages = usePolling(routes.packages)
+
   return (
     <div className="grow flex flex-col gap-2">
       <div>
@@ -21,17 +49,15 @@ const DataView = () => {
           selectedKey={selected}
           onSelectionChange={setSelected}
         >
-          {Object.keys(views).map((key) => (
-            <Tab key={key} title={views[key].label} />
-          ))}
+          <Tab key="packages" title="Packages" />
         </Tabs>
       </div>
       <div className="grow flex flex-row overflow-clip">
         <SimpleTable
-          key={views[selected].key}
-          columns={views[selected].columns}
-          rows={views[selected].rows}
-          customColumns={views[selected].customColumns}
+          key="packages"
+          columns={packagesColumns}
+          rows={packages}
+          customColumns={packagesCustomColumns}
         />
       </div>
     </div>

@@ -2,6 +2,8 @@ import AlertsIndicator from '../components/alertsIndicator'
 import NetworkTrafficChart from '../components/networkTrafficChart'
 import { Card, CardBody } from '@nextui-org/react'
 import NetworkResume from '../components/NetworkResume'
+import usePolling from '../api/usePolling'
+import routes from '../api/routes'
 
 const alerts = [
   {
@@ -21,23 +23,11 @@ const alerts = [
   }
 ]
 
-const trafficData = [
-  { time: '2021-10-01T00:00:01Z', value: 5 },
-  { time: '2021-10-01T00:00:02Z', value: 2 },
-  { time: '2021-10-01T00:00:03Z', value: 8 },
-  { time: '2021-10-01T00:00:04Z', value: 3 },
-  { time: '2021-10-01T00:00:05Z', value: 6 },
-  { time: '2021-10-01T00:00:06Z', value: 4 },
-  { time: '2021-10-01T00:00:07Z', value: 7 },
-  { time: '2021-10-01T00:00:08Z', value: 5 },
-  { time: '2021-10-01T00:00:09Z', value: 9 },
-  { time: '2021-10-01T00:00:10Z', value: 2 }
-]
-
-const networkResume =
-  'Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.'
+const networkResume = 'Todo cool.'
 
 const Dashboard = () => {
+  const trafficData = usePolling(routes.packages_by_second)
+
   return (
     <div className="grow flex flex-col gap-2">
       <Card className="flex-1 bg-background p-2" shadow="none">
